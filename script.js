@@ -113,12 +113,49 @@ const weatherCodes = [
   },
 ];
 
-const api_url =
-  "https://api.open-meteo.com/v1/forecast?latitude=50.46&longitude=15.38&current_weather=true&timezone=Europe%2FBerlin";
+const places = [
+  {
+    city: "Valdice",
+    lat: 50.46,
+    lon: 15.38,
+  },
+  {
+    city: "Hradec Králové",
+    lat: 50.21,
+    lon: 15.83,
+  },
+  {
+    city: "Pardubice",
+    lat: 50.03,
+    lon: 15.77,
+  },
+  { city: "Liberec", lat: 50.74, lon: 15.05 },
+];
+// Index of selected place for weather
+let placeIndex = 0;
+// Function to get url based by selected place
+function getApiUrl() {
+  let lat = places[placeIndex].lat;
+  let lon = places[placeIndex].lon;
+  return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=Europe%2FBerlin`;
+}
+// HTML catch elements
+const citiesDiv = document.querySelector("#cities");
+const divWeather = document.querySelector("#div-weather");
+// Display cities in the page
+for (let i = 0; i < places.length; i++) {
+  let cityBtn = document.createElement("button");
+  cityBtn.textContent = places[i].city;
+  cityBtn.id = i;
+  cityBtn.className = "city"
+  citiesDiv.append(cityBtn);
+  cityBtn.addEventListener("click", function (e) {
+    placeIndex = e.target.id;
+    loadApi(getApiUrl());
+  });
+}
 
-// HTML "catch" element
-let divWeather = document.querySelector("#div-weather");
-// Widget Structure
+// Weather info widget Structure
 const tempDiv = document.createElement("div");
 const iconDiv = document.createElement("div");
 const placeDiv = document.createElement("div");
@@ -150,21 +187,21 @@ function getIcon(weatherCode) {
 function render(loadedApi) {
   let temp = loadedApi.current_weather.temperature;
   let code = loadedApi.current_weather.weathercode;
-  const place = "Valdice";
-  tempDiv.textContent = temp;
+  const place = places[placeIndex].city;
+  tempDiv.textContent = `${temp} °C`;
   placeDiv.textContent = place;
   iconDiv.innerHTML = getIcon(code);
 }
-
 async function loadApi(url) {
   const response = await fetch(url);
+  console.log(url);
   let data = await response.json();
   render(data);
-  console.log("load")
+  console.log(data);
 }
-
-setInterval(  () =>  loadApi(api_url), 1000);
-
 window.addEventListener("load", function () {
-  loadApi(api_url);
+  loadApi(getApiUrl());
 });
+setInterval(() => loadApi(getApiUrl()), 10000);
+// New api
+const api_key = "e7704bc895b4a8d2dfd4a29d404285b6";
