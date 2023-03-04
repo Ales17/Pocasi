@@ -8,19 +8,28 @@ function getApiUrl(currentIndex) {
 }
 // HTML catch elements
 const divWeather = document.querySelector("#div-weather");
-
+const overlay = document.getElementById("overlay");
+const menuBtn = document.querySelector("#menu-btn");
 // Display cities in the page
-/* for (let i = 0; i < places.length; i++) {
+for (let i = 0; i < places.length; i++) {
   let cityBtn = document.createElement("button");
   cityBtn.textContent = places[i].city;
   cityBtn.id = i;
-  cityBtn.className = "city";
-  citiesDiv.append(cityBtn);
+  cityBtn.className = "btn";
+  overlay.append(cityBtn);
   cityBtn.addEventListener("click", function (e) {
     placeIndex = e.target.id;
-    loadApi(getApiUrl());
+    loadApi(getApiUrl(placeIndex));
+    toggle()
   });
-} */
+}
+
+menuBtn.addEventListener("click", () => toggle());
+
+let toggle = () =>
+  overlay.style.display == "none"
+    ? (overlay.style.display = "grid")
+    : (overlay.style.display = "none");
 
 function switchCity() {
   placeIndex === places.length - 1 ? (placeIndex = 0) : placeIndex++;
@@ -34,7 +43,7 @@ iconDiv.id = "icon";
 const placeDiv = document.createElement("div");
 placeDiv.id = "place";
 divWeather.append(placeDiv, iconDiv, tempDiv);
-divWeather.addEventListener("click", switchCity);
+// divWeather.addEventListener("click", switchCity);
 
 let getDetails = (weatherCode) =>
   weatherCodes.filter((e) => e.code === weatherCode);

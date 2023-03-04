@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap");
-
+:root {
+  --font-main: "Montserrat", sans-serif
+}
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
 html,
 body {
   height: 100%;
@@ -11,13 +17,21 @@ body {
   align-items: center;
   background: #74ebd5; /* fallback for old browsers */
   background: linear-gradient(to right, #acb6e5, #74ebd5);
-  font-family: "Montserrat Alternates", sans-serif;
+  font-family: var(--font-main);
   color: #222244;
 }
-
+.btn {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font: var(--font-main) 22px;
+}
 i {
   font-size: 2.5em;
 }
+#menu-btn {position: absolute; top: 20px;}
 #div-weather {
   display: flex;
   justify-content: space-evenly;
@@ -39,10 +53,9 @@ i {
 }
 @media (min-width: 768px) {
   #div-weather {
-     
     max-width: 350px;
-     
   }
+  #overlay {grid-template-columns: 1fr 1fr 1fr;}
 }
 
 /*Overlay - preparation for options after opening menu*/
@@ -54,4 +67,8 @@ i {
   left: 0;
   z-index: 1;
   backdrop-filter: blur(10px);
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  padding: 10px;
 }
