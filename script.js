@@ -7,7 +7,6 @@ function getApiUrl(currentIndex) {
   return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=Europe%2FBerlin`;
 }
 // HTML catch elements
-const citiesDiv = document.querySelector("#div-cities");
 const divWeather = document.querySelector("#div-weather");
 
 // Display cities in the page
@@ -23,13 +22,19 @@ const divWeather = document.querySelector("#div-weather");
   });
 } */
 
+function switchCity() {
+  placeIndex === places.length - 1 ? (placeIndex = 0) : placeIndex++;
+  loadApi(getApiUrl(placeIndex));
+}
+
 const tempDiv = document.createElement("div");
-tempDiv.id = "temp"
+tempDiv.id = "temp";
 const iconDiv = document.createElement("div");
-iconDiv.id = "icon"
+iconDiv.id = "icon";
 const placeDiv = document.createElement("div");
-placeDiv.id = "place"
+placeDiv.id = "place";
 divWeather.append(placeDiv, iconDiv, tempDiv);
+divWeather.addEventListener("click", switchCity);
 
 let getDetails = (weatherCode) =>
   weatherCodes.filter((e) => e.code === weatherCode);
@@ -58,7 +63,6 @@ async function loadApi(url) {
   const response = await fetch(url);
   let data = await response.json();
   renderFunkce(data);
-   
 }
 
 window.addEventListener("load", function () {
