@@ -58,33 +58,33 @@ const weatherCodes = [
   {
     code: 71,
     description: "Sněžení - velmi slabá intenzita",
-    icon: "snow-fill",
+    icon: "cloud-snow-fill",
   },
   {
     code: 73,
     description: "Sněžení - slabá až střední intenzita",
-    icon: "snow-fill",
+    icon: "cloud-snow-fill",
   },
   {
     code: 75,
     description: "Sněžení - střední až silná intenzita",
-    icon: "snow-fill",
+    icon: "cloud-snow-fill",
   },
-  { code: 77, description: "Jemný sníh", icon: "snow-fill" },
+  { code: 77, description: "Jemný sníh", icon: "cloud-snow-fill" },
   {
     code: 80,
     description: "Déšť se sněhem - slabá intenzita",
-    icon: "cloud-snow-fill",
+    icon: "cloud-cloud-snow-fill",
   },
   {
     code: 81,
     description: "Déšť se sněhem - střední intenzita",
-    icon: "cloud-snow-fill",
+    icon: "cloud-cloud-snow-fill",
   },
   {
     code: 82,
     description: "Déšť se sněhem - silná intenzita",
-    icon: "cloud-snow-fill",
+    icon: "cloud-cloud-snow-fill",
   },
   {
     code: 85,
