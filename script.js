@@ -10,6 +10,7 @@ function getApiUrl(currentIndex) {
 const divWeather = document.querySelector("#div-weather");
 const overlay = document.getElementById("overlay");
 const menuBtn = document.querySelector("#menu-btn");
+const closeBtn = document.querySelector("#close-btn")
 // Display cities in the page
 for (let i = 0; i < places.length; i++) {
   let cityBtn = document.createElement("button");
@@ -23,7 +24,7 @@ for (let i = 0; i < places.length; i++) {
     toggle()
   });
 }
-
+closeBtn.addEventListener("click", () => toggle())
 menuBtn.addEventListener("click", () => toggle());
 
 let toggle = () =>
@@ -60,12 +61,16 @@ function getIcon(weatherCode) {
 }
 
 function renderFunkce(apiObject) {
+  console.log("RENDERING")
   let temp = apiObject.current_weather.temperature;
   let code = apiObject.current_weather.weathercode;
   const place = places[placeIndex].city;
+  console.log(temp)
+  console.log(code)
   tempDiv.textContent = `${temp} °C`;
   placeDiv.textContent = place;
   iconDiv.innerHTML = getIcon(code);
+  
 }
 
 async function loadApi(url) {
