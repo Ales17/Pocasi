@@ -1,5 +1,10 @@
-// Index of selected place for weather
-let placeIndex = 0;
+// Selected place info
+let currentPlace = {
+  lat: places[0].lat,
+  lon: places[0].lon,
+  city: places[0].city,
+};
+
 // Function to get url based by selected place
 function getIndexApiUrl(currentIndex) {
   let lat = places[currentIndex].lat;
@@ -13,43 +18,43 @@ function getApiUrlByCoords(lat, lon) {
 
 // HTML catch elements
 const divWeather = document.getElementById("div-weather");
-const overlay = document.getElementById("overlay");
+const overlayMenu = document.getElementById("overlay");
 const menuBtn = document.getElementById("menu-btn");
-const closeBtn = document.getElementById("close-btn");
+const overlayMenuCloseBtn = document.getElementById("close-btn");
+
 // Display cities in the page
 for (let i = 0; i < places.length; i++) {
   let cityBtn = document.createElement("button");
+  cityBtn.className = "btn";
   cityBtn.textContent = places[i].city;
   cityBtn.id = i;
-  cityBtn.className = "btn";
-  overlay.append(cityBtn);
+  
   cityBtn.addEventListener("click", function (e) {
-    placeIndex = e.target.id;
-    loadApi(getIndexApiUrl(placeIndex));
+    currentPlace = places[e.target.id];
+    loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon));
     toggleMenuVisibility();
   });
+
+  overlayMenu.append(cityBtn);
 }
-closeBtn.addEventListener("click", () => toggleMenuVisibility());
+overlayMenuCloseBtn.addEventListener("click", () => toggleMenuVisibility());
 menuBtn.addEventListener("click", () => toggleMenuVisibility());
 
 let toggleMenuVisibility = () =>
-  overlay.style.display == "none"
-    ? (overlay.style.display = "grid")
-    : (overlay.style.display = "none");
-
-function switchCity() {
-  placeIndex === places.length - 1 ? (placeIndex = 0) : placeIndex++;
-  loadApi(getIndexApiUrl(placeIndex));
-}
+  overlayMenu.style.display == "none"
+    ? (overlayMenu.style.display = "grid")
+    : (overlayMenu.style.display = "none");
 
 const tempDiv = document.createElement("div");
 tempDiv.id = "temp";
+
 const iconDiv = document.createElement("div");
 iconDiv.id = "icon";
+
 const placeDiv = document.createElement("div");
 placeDiv.id = "place";
 divWeather.append(placeDiv, iconDiv, tempDiv);
-// divWeather.addEventListener("click", switchCity);
+
 
 let getDetails = (weatherCode) =>
   weatherCodes.filter((e) => e.code === weatherCode);
@@ -60,7 +65,7 @@ function getWeatherIconElement(iconName, weatherDescription) {
   iconElement.title = weatherDescription;
   return iconElement.outerHTML;
 }
- 
+
 function getWeatherIconInfo(weatherCode) {
   let weatherDetails = getDetails(weatherCode);
   let iconName = weatherDetails[0].icon;
@@ -69,24 +74,25 @@ function getWeatherIconInfo(weatherCode) {
   return getWeatherIconElement(iconName, weatherDescription);
 }
 
-function renderFunkce(apiObject) {
-  console.log("RENDERING");
+function presentToUser(apiObject) {
   let temp = apiObject.current_weather.temperature;
   let code = apiObject.current_weather.weathercode;
-  const place = places[placeIndex].city;
-  console.log(`TEMP - ${temp}, CODE - ${code}`);
+  const place = currentPlace.city;
+
   tempDiv.textContent = `${temp} °C`;
   placeDiv.textContent = place;
   iconDiv.innerHTML = getWeatherIconInfo(code);
+  
+  console.log(`TEMP - ${temp}, CODE - ${code}`);
 }
 
 async function loadApi(url) {
   const response = await fetch(url);
   let data = await response.json();
-  renderFunkce(data);
+  presentToUser(data);
 }
 
 window.addEventListener("load", function () {
-  loadApi(getIndexApiUrl(placeIndex));
+  loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon));
 });
-setInterval(() => loadApi(getIndexApiUrl(placeIndex)), 10000);
+setInterval(() => loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon)), 10000);
