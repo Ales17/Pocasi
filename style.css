@@ -1,28 +1,42 @@
 /*Mobile-first design*/
 @import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap");
+
 :root {
   --font-main: "Montserrat", sans-serif;
 }
+
 * {
   box-sizing: border-box;
   user-select: none;
+  font-family: var(--font-main);
 }
+
 html,
 body {
   height: 100%;
   margin: 0 auto;
 }
+
+#search-form {
+  display: grid;
+  width: 100%;
+  gap: 10px
+}
+
+
 body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #74ebd5; /* fallback for old browsers */
+  background: #74ebd5;
+  /* fallback for old browsers */
   background: linear-gradient(to right, #acb6e5, #74ebd5);
   font-family: var(--font-main);
   color: #222244;
 
 }
+
 /*Basic btn styling*/
 .btn {
   background: rgba(255, 255, 255, 0.2);
@@ -36,14 +50,13 @@ body {
 
 /*Button to open OVERLAY*/
 #menu-btn {
-    position: absolute;
-  top: 20px;  
-   
+  position: absolute;
+  top: 20px;
   width: 90px;
   height: 30px;
-  
+
 }
- 
+
 /*Overlay - city selector*/
 #overlay {
   width: 100%;
@@ -58,10 +71,18 @@ body {
   grid-gap: 10px;
   padding: 10px;
 }
- 
-#close-btn {
+
+#location-input {
+  border: 1px solid rgb(0 0 0 / 70%);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+  background: white;
+}
+
+.full-width {
   grid-column: span 2;
 }
+
 /*Weather box*/
 #div-weather {
   display: flex;
@@ -72,27 +93,34 @@ body {
   width: 75vw;
   aspect-ratio: 1/1;
   background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 5px;
   text-align: center;
 }
+
 #place {
   font-weight: 600;
 }
+
 i {
   font-size: 2.5em;
 }
+
 /* Desktop design */
 @media (min-width: 768px) {
   #div-weather {
     max-width: 350px;
   }
+
   #overlay {
     grid-template-columns: 1fr 1fr 1fr;
     padding: 10px 25vw 10px 25vw;
   }
-  #close-btn {grid-column: span 3 }  
+
+  .full-width {
+    grid-column: span 3
+  }
 }

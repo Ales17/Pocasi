@@ -28,7 +28,7 @@ for (let i = 0; i < places.length; i++) {
   cityBtn.className = "btn";
   cityBtn.textContent = places[i].city;
   cityBtn.id = i;
-  
+
   cityBtn.addEventListener("click", function (e) {
     currentPlace = places[e.target.id];
     loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon));
@@ -54,7 +54,6 @@ iconDiv.id = "icon";
 const placeDiv = document.createElement("div");
 placeDiv.id = "place";
 divWeather.append(placeDiv, iconDiv, tempDiv);
-
 
 let getDetails = (weatherCode) =>
   weatherCodes.filter((e) => e.code === weatherCode);
@@ -82,7 +81,7 @@ function presentToUser(apiObject) {
   tempDiv.textContent = `${temp} °C`;
   placeDiv.textContent = place;
   iconDiv.innerHTML = getWeatherIconInfo(code);
-  
+
   console.log(`TEMP - ${temp}, CODE - ${code}`);
 }
 
@@ -95,4 +94,35 @@ async function loadApi(url) {
 window.addEventListener("load", function () {
   loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon));
 });
-setInterval(() => loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon)), 10000);
+//setInterval(() => loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon)), 10000);
+
+let chosenCity;
+function logSubmit(event) {
+  //console.log(event);
+  event.preventDefault();
+  let inputValue = event.target[0].value;
+  getSearchResult(inputValue);
+}
+const searchForm = document.getElementById("search-form");
+searchForm.addEventListener("submit", logSubmit);
+
+async function getSearchResult(searchQuery) {
+  const encodedQuery = encodeURI(searchQuery);
+  let url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodedQuery}&count=1&language=en&format=json`;
+  const response = await fetch(url);
+  let data = await response.json();
+  console.log(data);
+  if (!data.results) {
+    console.log("Město nenalezeno");
+  } else {
+    const r = data.results[0];
+    console.log(r)
+    currentPlace = {
+      lat: r.latitude,
+      lon: r.longitude,
+      city: r.name,
+    };
+    loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon));
+
+  }
+}

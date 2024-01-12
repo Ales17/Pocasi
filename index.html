@@ -14,7 +14,11 @@
   <body>
     <button id="menu-btn" class="btn">Menu</button>
     <div id="overlay">
-      <button id="close-btn" class="btn">Zavřít</button>
+      <button id="close-btn" class="btn full-width">Zavřít</button>
+      <form id="search-form" action="" class="full-width">
+        <input id="location-input" type="text" minlength="1" required />
+        <input id="set-btn" type="submit" value="Nastavit" class="btn" />
+      </form>
     </div>
     <div id="div-weather"></div>
 
