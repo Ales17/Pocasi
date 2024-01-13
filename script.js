@@ -96,7 +96,6 @@ window.addEventListener("load", function () {
 });
 //setInterval(() => loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon)), 10000);
 
-let chosenCity;
 function logSubmit(event) {
   //console.log(event);
   event.preventDefault();
@@ -108,12 +107,12 @@ searchForm.addEventListener("submit", logSubmit);
 
 async function getSearchResult(searchQuery) {
   const encodedQuery = encodeURI(searchQuery);
-  let url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodedQuery}&count=1&language=en&format=json`;
+  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodedQuery}&count=1&language=en&format=json`;
   const response = await fetch(url);
   let data = await response.json();
   console.log(data);
   if (!data.results) {
-    console.log("Město nenalezeno");
+    alert("Město nenalezeno. Zkuste to znovu")
   } else {
     const r = data.results[0];
     console.log(r)
@@ -123,6 +122,5 @@ async function getSearchResult(searchQuery) {
       city: r.name,
     };
     loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon));
-
   }
 }

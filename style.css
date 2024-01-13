@@ -72,13 +72,16 @@ body {
   width: 100%;
   gap: 10px
 }
+
 /* City search input*/
 #location-input {
   border: none;
   border-radius: 16px;
   box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
   background: #fff;
+  padding: 1px 8px
 }
+
 /* Span row through all columns */
 .full-width {
   grid-column: 1/-1;
