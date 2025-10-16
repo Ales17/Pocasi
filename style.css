@@ -3,6 +3,7 @@
 
 :root {
     --font-main: "Montserrat", sans-serif;
+    --input-height: 45px;
 }
 
 * {
@@ -69,6 +70,11 @@ body {
     display: block;
 }
 
+.place-btns {
+    display: grid;
+    gap: 5px;
+}
+
 /* City selection form */
 #search-form {
     /* display: grid; */
@@ -84,7 +90,7 @@ body {
 
 .search-results {
     position: absolute;
-    top: 60px;
+    top: var(--input-height);
     width: 100%;
     background: #fff;
 }
@@ -96,13 +102,20 @@ body {
 
 
 /* City search input*/
-#location-input {
+#search-form input[type='search'] {
     width: 100%;
     border: none;
     border-radius: 16px;
     box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+    height: var(--input-height);
     background: #fff;
-    padding: 1px 8px
+
+}
+
+.search-results div,
+#search-form input[type='search'] {
+    padding: 10px;
+    font-size: 1rem;
 }
 
 /* Span row through all columns */
@@ -143,8 +156,11 @@ i {
     }
 
     #overlay {
-        grid-template-columns: 1fr 1fr 1fr;
-        padding: 10px 25vw 10px 25vw;
+        padding: 10px 25vw;
+    }
+
+    .place-btns {
+        grid-template-columns: repeat(2, 1fr);
     }
 
 }
