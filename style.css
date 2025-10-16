@@ -66,6 +66,12 @@ body {
     padding: 10px;
 }
 
+#overlay .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 #overlay.visible {
     display: block;
 }
@@ -114,7 +120,9 @@ body {
 
 
 .search-results div,
-#search-form input[type='search'] {
+#search-form input[type='search'],
+.place-btns button,
+#close-btn {
     padding: 10px;
     font-size: 1rem;
 }
