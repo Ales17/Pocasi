@@ -37,10 +37,17 @@ for (let i = 0; i < places.length; i++) {
 
   placeBtns.append(cityBtn);
 }
-overlayMenuCloseBtn.addEventListener("click", () => toggleMenuVisibility());
-menuBtn.addEventListener("click", () => toggleMenuVisibility());
 
+// Overlay menu functions
 let toggleMenuVisibility = () => overlayMenu.classList.toggle("visible");
+
+let closeOverlay = () => {
+  searchResultsDiv.replaceChildren();
+  toggleMenuVisibility();
+};
+
+overlayMenuCloseBtn.addEventListener("click", () => closeOverlay());
+menuBtn.addEventListener("click", () => toggleMenuVisibility());
 
 const tempDiv = document.createElement("div");
 tempDiv.id = "temp";
