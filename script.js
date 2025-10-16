@@ -82,7 +82,7 @@ function presentToUser(apiObject) {
   placeDiv.textContent = place;
   iconDiv.innerHTML = getWeatherIconInfo(code);
 
-  console.log(`TEMP - ${temp}, CODE - ${code}`);
+  //console.log(`TEMP - ${temp}, CODE - ${code}`);
 }
 
 async function loadApi(url) {
@@ -112,10 +112,10 @@ async function getSearchResult(searchQuery) {
   let data = await response.json();
   console.log(data);
   if (!data.results) {
-    alert("Město nenalezeno. Zkuste to znovu")
+    alert("Město nenalezeno. Zkuste to znovu");
   } else {
     const r = data.results[0];
-    console.log(r)
+    console.log(r);
     currentPlace = {
       lat: r.latitude,
       lon: r.longitude,
@@ -124,3 +124,68 @@ async function getSearchResult(searchQuery) {
     loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon));
   }
 }
+
+const getSearchResultsJson = async (q) => {
+  const encodedQuery = encodeURI(q);
+  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodedQuery}&count=10&language=en&format=json`;
+  const response = await fetch(url);
+  let data = await response.json();
+  return data.results;
+};
+
+const searchResultsDiv = document.querySelector(".search-results");
+
+const setElementAsCurrentPlace = async (e) => {
+  const data = e.target.dataset;
+  const lon = data.lon;
+  const lat = data.lat;
+  const reg = data.reg;
+  const name = e.target.textContent;
+
+  currentPlace = {
+    lat: data.lat,
+    lon: data.long,
+    city: name,
+  };
+
+  await loadApi(getApiUrlByCoords(lat, lon));
+
+  overlayMenuCloseBtn.click();
+};
+
+const appendPlaceToResults = (place) => {
+  const result = document.createElement("div");
+  result.textContent = place.name;
+  result.setAttribute("data-lat", place.latitude);
+  result.setAttribute("data-lon", place.longitude);
+  result.setAttribute("data-reg", place.admin1);
+  result.addEventListener("click", setElementAsCurrentPlace);
+  searchResultsDiv.appendChild(result);
+};
+
+var searchResultsSet = new Set();
+
+const addResultToSet = (r) => {
+  searchResultsSet.add(r);
+};
+
+const performSearch = async (e) => {
+  // Modern way to remove children
+  searchResultsDiv.replaceChildren();
+  searchResultsSet = new Set();
+
+  const query = e.target.value;
+  const results = await getSearchResultsJson(query);
+
+  results.forEach((r) => {
+    addResultToSet(r);
+  });
+
+  searchResultsSet.forEach((el) => {
+    appendPlaceToResults(el);
+  });
+};
+
+searchForm.addEventListener("keyup", performSearch);
+
+const setSearchResultAsCurrent = (e) => {};
