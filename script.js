@@ -93,14 +93,7 @@ window.addEventListener("load", function () {
 });
 //setInterval(() => loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon)), 10000);
 
-function logSubmit(event) {
-  //console.log(event);
-  event.preventDefault();
-  let inputValue = event.target[0].value;
-  getSearchResult(inputValue);
-}
 const searchForm = document.getElementById("search-form");
-searchForm.addEventListener("submit", logSubmit);
 
 async function getSearchResult(searchQuery) {
   const encodedQuery = encodeURI(searchQuery);
