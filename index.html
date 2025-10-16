@@ -12,7 +12,11 @@
     <title>Počasí</title>
   </head>
   <body>
-    <button id="menu-btn" class="btn">Menu</button>
+    <div class="wrapper">
+      <button id="menu-btn" class="btn">Menu</button>
+      <div id="div-weather"></div>
+    </div>
+    <!-- Overlay - offcanvas - place select menu -->
     <div id="overlay">
       <button id="close-btn" class="btn full-width">Zavřít</button>
       <form id="search-form">
@@ -26,12 +30,10 @@
           />
           <div class="search-results"></div>
         </div>
-        <!-- <input id="set-btn" type="submit" value="Nastavit" class="btn" /> -->
       </form>
 
       <div class="place-btns"></div>
     </div>
-    <div id="div-weather"></div>
 
     <script src="const.js"></script>
     <script src="script.js"></script>
