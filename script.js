@@ -40,10 +40,7 @@ for (let i = 0; i < places.length; i++) {
 overlayMenuCloseBtn.addEventListener("click", () => toggleMenuVisibility());
 menuBtn.addEventListener("click", () => toggleMenuVisibility());
 
-let toggleMenuVisibility = () =>
-  overlayMenu.style.display == "none"
-    ? (overlayMenu.style.display = "grid")
-    : (overlayMenu.style.display = "none");
+let toggleMenuVisibility = () => overlayMenu.classList.toggle("visible");
 
 const tempDiv = document.createElement("div");
 tempDiv.id = "temp";
