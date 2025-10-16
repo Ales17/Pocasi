@@ -21,7 +21,7 @@ const divWeather = document.getElementById("div-weather");
 const overlayMenu = document.getElementById("overlay");
 const menuBtn = document.getElementById("menu-btn");
 const overlayMenuCloseBtn = document.getElementById("close-btn");
-
+const placeBtns = document.querySelector(".place-btns");
 // Display cities in the page
 for (let i = 0; i < places.length; i++) {
   let cityBtn = document.createElement("button");
@@ -35,7 +35,7 @@ for (let i = 0; i < places.length; i++) {
     toggleMenuVisibility();
   });
 
-  overlayMenu.append(cityBtn);
+  placeBtns.append(cityBtn);
 }
 overlayMenuCloseBtn.addEventListener("click", () => toggleMenuVisibility());
 menuBtn.addEventListener("click", () => toggleMenuVisibility());
