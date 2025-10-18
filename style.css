@@ -105,6 +105,9 @@ body {
     cursor: pointer;
 }
 
+.search-results div::after {
+    content: ", " attr(data-reg);
+}
 
 /* City search input*/
 #search-form input[type='search'] {
