@@ -47,9 +47,8 @@ body {
 #menu-btn {
     position: absolute;
     top: 20px;
-    width: 90px;
-    height: 30px;
-
+    padding: 10px;
+    font-size: 1rem;
 }
 
 /*Overlay - menu with predefined cities and search box*/
