@@ -189,4 +189,6 @@ const performSearch = async (e) => {
 
 searchForm.addEventListener("keyup", performSearch);
 
+searchForm.addEventListener("input", performSearch);
+
 const setSearchResultAsCurrent = (e) => {};
