@@ -12,27 +12,28 @@
     <title>Počasí</title>
   </head>
   <body>
-    <div class="wrapper">
-      <button id="menu-btn" class="btn">Menu</button>
-      <div id="div-weather"></div>
-    </div>
+    <button id="menu-btn" class="btn">Menu</button>
+    <div id="div-weather"></div>
+
     <!-- Overlay - offcanvas - place select menu -->
     <div id="overlay">
-      <button id="close-btn" class="btn full-width">Zavřít</button>
-      <form id="search-form">
-        <div class="search-wrapper">
-          <input
-            id="location-input"
-            type="search"
-            minlength="1"
-            required
-            placeholder="Zadejte název obce"
-          />
-          <div class="search-results"></div>
-        </div>
-      </form>
+      <div class="wrapper">
+        <button id="close-btn" class="btn full-width">Zavřít</button>
+        <form id="search-form">
+          <div class="search-wrapper">
+            <input
+              id="location-input"
+              type="search"
+              minlength="1"
+              required
+              placeholder="Zadejte název obce"
+            />
+            <div class="search-results"></div>
+          </div>
+        </form>
 
-      <div class="place-btns"></div>
+        <div class="place-btns"></div>
+      </div>
     </div>
 
     <script src="const.js"></script>
