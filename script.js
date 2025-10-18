@@ -169,7 +169,9 @@ const addResultToSet = (r) => {
 const performSearch = async (e) => {
   // Modern way to remove children
   searchResultsDiv.replaceChildren();
-  searchResultsSet = new Set();
+  if (e.target.value == "" || e.target.value.length < 2) {
+    return;
+  }
 
   const query = e.target.value;
   const results = await getSearchResultsJson(query);
