@@ -174,6 +174,10 @@ const performSearch = async (e) => {
   const query = e.target.value;
   const results = await getSearchResultsJson(query);
 
+  if (results == undefined || results.length < 1) {
+    return;
+  }
+
   results.forEach((r) => {
     addResultToSet(r);
   });
