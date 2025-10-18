@@ -95,9 +95,11 @@ body {
 
 .search-results {
     position: absolute;
-    top: var(--input-height);
+    top: calc(var(--input-height));
+    border-radius: 11px;
     width: 100%;
     background: #fff;
+    overflow: hidden;
 }
 
 .search-results div:hover {
