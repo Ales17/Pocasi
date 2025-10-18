@@ -110,7 +110,7 @@ body {
 #search-form input[type='search'] {
     width: 100%;
     border: none;
-    border-radius: 16px;
+    border-radius: 11px;
     box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
     height: var(--input-height);
     background: #fff;
