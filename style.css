@@ -3,7 +3,7 @@
 
 :root {
     --font-main: "Montserrat", sans-serif;
-    --input-height: 45px;
+    --input-height: 50px;
 }
 
 * {
@@ -69,6 +69,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    margin: 0 auto;
 }
 
 #overlay.visible {
@@ -95,11 +96,15 @@ body {
 
 .search-results {
     position: absolute;
-    top: calc(var(--input-height));
+    top: calc(5px + var(--input-height));
     border-radius: 11px;
     width: 100%;
     background: #fff;
     overflow: hidden;
+}
+
+.search-results div {
+    transition: .3s all;
 }
 
 .search-results div:hover {
@@ -119,9 +124,11 @@ body {
     box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
     height: var(--input-height);
     background: #fff;
-
 }
 
+#search-form input:focus-visible {
+    outline: none;
+}
 
 .search-results div,
 #search-form input[type='search'],
@@ -129,11 +136,6 @@ body {
 #close-btn {
     padding: 10px;
     font-size: 1rem;
-}
-
-/* Span row through all columns */
-.full-width {
-    grid-column: 1/-1;
 }
 
 /*Weather box*/
@@ -162,18 +164,28 @@ i {
     font-size: 2.5em;
 }
 
+
+
 /* Desktop design */
 @media (min-width: 768px) {
     #div-weather {
         max-width: 350px;
     }
 
-    #overlay {
-        padding: 10px 25vw;
-    }
 
     .place-btns {
         grid-template-columns: repeat(2, 1fr);
     }
 
+}
+
+@media screen and (min-width: 1024px) {
+    #overlay>.wrapper {
+        max-width: 950px;
+
+    }
+
+    .place-btns {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
