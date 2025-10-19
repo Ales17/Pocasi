@@ -16,6 +16,39 @@ function getApiUrlByCoords(lat, lon) {
   return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=Europe%2FBerlin`;
 }
 
+const setElementAsCurrentPlace = async (e) => {
+  const data = e.target.dataset;
+  const lon = data.lon;
+  const lat = data.lat;
+  const reg = data.reg;
+  const name = e.target.textContent;
+
+  currentPlace = {
+    lat: data.lat,
+    lon: data.long,
+    city: name,
+  };
+
+  await loadApi(getApiUrlByCoords(lat, lon));
+
+  overlayMenuCloseBtn.click();
+};
+
+const getPlaceElement = (elType, place) => {
+  const element = document.createElement(elType);
+  element.textContent = place.name;
+  element.setAttribute("data-lat", place.latitude);
+  element.setAttribute("data-lon", place.longitude);
+  element.setAttribute("data-reg", place.admin1);
+  element.addEventListener("click", setElementAsCurrentPlace);
+  return element;
+};
+
+const appendPlaceToResults = (place) => {
+  const placeResult = getPlaceElement("div", place);
+  searchResultsDiv.appendChild(placeResult);
+};
+
 // HTML catch elements
 const divWeather = document.getElementById("div-weather");
 const overlayMenu = document.getElementById("overlay");
@@ -132,34 +165,6 @@ const getSearchResultsJson = async (q) => {
 
 const searchResultsDiv = document.querySelector(".search-results");
 
-const setElementAsCurrentPlace = async (e) => {
-  const data = e.target.dataset;
-  const lon = data.lon;
-  const lat = data.lat;
-  const reg = data.reg;
-  const name = e.target.textContent;
-
-  currentPlace = {
-    lat: data.lat,
-    lon: data.long,
-    city: name,
-  };
-
-  await loadApi(getApiUrlByCoords(lat, lon));
-
-  overlayMenuCloseBtn.click();
-};
-
-const appendPlaceToResults = (place) => {
-  const result = document.createElement("div");
-  result.textContent = place.name;
-  result.setAttribute("data-lat", place.latitude);
-  result.setAttribute("data-lon", place.longitude);
-  result.setAttribute("data-reg", place.admin1);
-  result.addEventListener("click", setElementAsCurrentPlace);
-  searchResultsDiv.appendChild(result);
-};
-
 var searchResultsSet = new Set();
 
 const addResultToSet = (r) => {
@@ -167,25 +172,22 @@ const addResultToSet = (r) => {
 };
 
 const performSearch = async (e) => {
-  // Modern way to remove children
-  searchResultsDiv.replaceChildren();
   if (e.target.value == "" || e.target.value.length < 2) {
+    searchResultsDiv.replaceChildren();
+
     return;
   }
 
   const query = e.target.value;
   const results = await getSearchResultsJson(query);
+  searchResultsDiv.replaceChildren();
 
   if (results == undefined || results.length < 1) {
     return;
   }
 
   results.forEach((r) => {
-    addResultToSet(r);
-  });
-
-  searchResultsSet.forEach((el) => {
-    appendPlaceToResults(el);
+    appendPlaceToResults(r);
   });
 };
 
