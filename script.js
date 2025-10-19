@@ -1,3 +1,18 @@
+// HTML catch elements
+const divWeather = document.getElementById("div-weather");
+const overlayMenu = document.getElementById("overlay");
+const menuBtn = document.getElementById("menu-btn");
+const overlayMenuCloseBtn = document.getElementById("close-btn");
+const placeBtns = document.querySelector(".place-btns");
+const searchForm = document.getElementById("search-form");
+const searchFormInput = document.querySelector("#search-form input");
+const searchResultsDiv = document.querySelector(".search-results");
+
+const clearSearchResults = () => {
+  searchResultsDiv.replaceChildren();
+  searchResultsDiv.classList.add("d-none");
+};
+
 // Selected place info
 let currentPlace = {
   lat: places[0].lat,
@@ -32,6 +47,7 @@ const setElementAsCurrentPlace = async (e) => {
   };
 
   await loadApi(getApiUrlByCoords(lat, lon));
+  searchResultsDiv.classList.add("d-none");
 
   overlayMenuCloseBtn.click();
 };
@@ -52,12 +68,6 @@ const appendPlaceToResults = (place) => {
   searchResultsDiv.appendChild(placeResult);
 };
 
-// HTML catch elements
-const divWeather = document.getElementById("div-weather");
-const overlayMenu = document.getElementById("overlay");
-const menuBtn = document.getElementById("menu-btn");
-const overlayMenuCloseBtn = document.getElementById("close-btn");
-const placeBtns = document.querySelector(".place-btns");
 // Display cities in the page
 for (let i = 0; i < places.length; i++) {
   let cityBtn = document.createElement("button");
@@ -78,7 +88,8 @@ for (let i = 0; i < places.length; i++) {
 let toggleMenuVisibility = () => overlayMenu.classList.toggle("visible");
 
 let closeOverlay = () => {
-  searchResultsDiv.replaceChildren();
+  searchFormInput.value = "";
+  clearSearchResults();
   toggleMenuVisibility();
 };
 
@@ -136,8 +147,6 @@ window.addEventListener("load", function () {
 });
 //setInterval(() => loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon)), 10000);
 
-const searchForm = document.getElementById("search-form");
-
 const getSearchResultsJson = async (q) => {
   const encodedQuery = encodeURI(q);
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodedQuery}&count=10&language=${lang}&format=json`;
@@ -146,7 +155,9 @@ const getSearchResultsJson = async (q) => {
   return data.results;
 };
 
-const searchResultsDiv = document.querySelector(".search-results");
+const showSearchResultsDiv = () => {
+  searchResultsDiv.classList.remove("d-none");
+};
 
 var searchResultsSet = new Set();
 
@@ -156,19 +167,18 @@ const addResultToSet = (r) => {
 
 const performSearch = async (e) => {
   if (e.target.value == "" || e.target.value.length < 2) {
-    searchResultsDiv.replaceChildren();
-
+    clearSearchResults();
     return;
   }
 
   const query = e.target.value;
   const results = await getSearchResultsJson(query);
-  searchResultsDiv.replaceChildren();
+  clearSearchResults();
 
   if (results == undefined || results.length < 1) {
     return;
   }
-
+  searchResultsDiv.classList.remove("d-none");
   results.forEach((r) => {
     appendPlaceToResults(r);
   });
