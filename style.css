@@ -3,7 +3,8 @@
 
 :root {
     --font-main: "Montserrat", sans-serif;
-    --input-height: 50px;
+    --control-height: 50px;
+    --radius: 18px;
 }
 
 * {
@@ -32,10 +33,15 @@ body {
 
 }
 
+.btn,
+.close-btn {
+    height: var(--control-height);
+}
+
 /*Basic btn styling*/
 .btn {
     background: rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
+    border-radius: var(--radius);
     box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
     /* backdrop-filter: blur(15px); */
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -96,8 +102,8 @@ body {
 
 .search-results {
     position: absolute;
-    top: calc(5px + var(--input-height));
-    border-radius: 11px;
+    top: calc(5px + var(--control-height));
+    border-radius: var(--radius);
     width: 100%;
     background: #fff;
     overflow: hidden;
@@ -120,9 +126,9 @@ body {
 #search-form input[type='search'] {
     width: 100%;
     border: none;
-    border-radius: 11px;
+    border-radius: var(--radius);
     box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
-    height: var(--input-height);
+    height: var(--control-height);
     background: #fff;
 }
 
@@ -149,7 +155,7 @@ body {
     aspect-ratio: 1/1;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
+    border-radius: var(--radius);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(15px);
     padding: 5px;
