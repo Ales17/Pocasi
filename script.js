@@ -12,6 +12,8 @@ function getIndexApiUrl(currentIndex) {
   return getApiUrlByCoords(lat, lon);
 }
 
+const lang = "cs";
+
 function getApiUrlByCoords(lat, lon) {
   return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=Europe%2FBerlin`;
 }
@@ -135,29 +137,9 @@ window.addEventListener("load", function () {
 
 const searchForm = document.getElementById("search-form");
 
-async function getSearchResult(searchQuery) {
-  const encodedQuery = encodeURI(searchQuery);
-  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodedQuery}&count=1&language=en&format=json`;
-  const response = await fetch(url);
-  let data = await response.json();
-  console.log(data);
-  if (!data.results) {
-    alert("Město nenalezeno. Zkuste to znovu");
-  } else {
-    const r = data.results[0];
-    console.log(r);
-    currentPlace = {
-      lat: r.latitude,
-      lon: r.longitude,
-      city: r.name,
-    };
-    loadApi(getApiUrlByCoords(currentPlace.lat, currentPlace.lon));
-  }
-}
-
 const getSearchResultsJson = async (q) => {
   const encodedQuery = encodeURI(q);
-  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodedQuery}&count=10&language=en&format=json`;
+  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodedQuery}&count=10&language=${lang}&format=json`;
   const response = await fetch(url);
   let data = await response.json();
   return data.results;
