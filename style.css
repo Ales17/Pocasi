@@ -5,6 +5,7 @@
     --font-main: "Montserrat", sans-serif;
     --control-height: 50px;
     --radius: 18px;
+    --outline: #e2e2e2;
 }
 
 * {
@@ -133,7 +134,7 @@ body {
 }
 
 #search-form input:focus-visible {
-    outline: none;
+    outline: 1px solid var(--outline);
 }
 
 .search-results div,
