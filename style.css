@@ -113,7 +113,7 @@ body {
 }
 
 .search-results div::after {
-    content: ", " attr(data-reg);
+    content: ", " attr(data-reg) ", " attr(data-country);
 }
 
 /* City search input*/

@@ -42,6 +42,7 @@ const getPlaceElement = (elType, place) => {
   element.setAttribute("data-lat", place.latitude);
   element.setAttribute("data-lon", place.longitude);
   element.setAttribute("data-reg", place.admin1);
+  element.setAttribute("data-country", place.country_code);
   element.addEventListener("click", setElementAsCurrentPlace);
   return element;
 };
