@@ -59,6 +59,7 @@ const getPlaceElement = (elType, place) => {
   element.setAttribute("data-lon", place.longitude);
   element.setAttribute("data-reg", place.admin1);
   element.setAttribute("data-country", place.country_code);
+  element.setAttribute("tabindex", "0");
   element.addEventListener("click", setElementAsCurrentPlace);
   return element;
 };
