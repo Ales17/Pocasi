@@ -109,7 +109,7 @@ body {
 }
 
 .search-results div {
-    /* transition: .3s all ease; */
+    transition: 1s background-color;
 }
 
 .search-results div:hover {
@@ -117,12 +117,12 @@ body {
     cursor: pointer;
 }
 
-.search-results div:first-child:hover {
+.search-results div:first-child {
     border-top-left-radius: var(--radius);
     border-top-right-radius: var(--radius);
 }
 
-.search-results div:last-child:hover {
+.search-results div:last-child {
     border-bottom-left-radius: var(--radius);
     border-bottom-right-radius: var(--radius);
 }
