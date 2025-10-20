@@ -146,17 +146,21 @@ body {
     background: #fff;
     z-index: 9999;
     border: 1px solid transparent;
+    padding: 10px 15px;
+    font-size: 1rem;
 }
+
+
 
 #search-form input:focus-visible {
     outline: none;
     border: 1px solid var(--outline);
 }
 
+.search-results div {
+    padding: 10px;
+}
 
-
-.search-results div,
-#search-form input[type='search'],
 .place-btns button,
 #close-btn {
     padding: 10px;
