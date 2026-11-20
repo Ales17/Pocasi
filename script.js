@@ -52,6 +52,13 @@ const setElementAsCurrentPlace = async (e) => {
   overlayMenuCloseBtn.click();
 };
 
+const handleSearchResultKey = (e) => {
+  if (e.key !== "Enter") {
+    return;
+  }
+  setElementAsCurrentPlace(e);
+};
+
 const getPlaceElement = (elType, place) => {
   const element = document.createElement(elType);
   element.textContent = place.name;
@@ -61,6 +68,7 @@ const getPlaceElement = (elType, place) => {
   element.setAttribute("data-country", place.country_code);
   element.setAttribute("tabindex", "0");
   element.addEventListener("click", setElementAsCurrentPlace);
+  element.addEventListener("keyup", handleSearchResultKey);
   return element;
 };
 
