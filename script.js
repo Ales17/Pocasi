@@ -188,12 +188,13 @@ const performSearch = async (e) => {
     return;
   }
   searchResultsDiv.classList.remove("d-none");
-  results.forEach((r) => {
-    appendPlaceToResults(r);
+  results.forEach((r, index) => {
+    const isLast = index == results.length - 1 ? true : false;
+    appendPlaceToResults(r, isLast);
   });
 };
 
-searchForm.addEventListener("keyup", performSearch);
+// searchForm.addEventListener("keyup", performSearch);
 
 searchForm.addEventListener("input", performSearch);
 
